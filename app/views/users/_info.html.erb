@@ -16,6 +16,15 @@
     <th>followers</th>
 	  <th><%= link_to "#{user.followed.count}", follower_user_path(user) %></th>
   </tr>
+  <tr>
+    <% if user.id != current_user.id %>
+      <% if current_user.following?(user) %>
+        <th><%= link_to 'フォロー外す', unfollow_path(user.id), method: :post, class: "btn btn-info btn-block" %></th>
+      <% else %>
+        <th><%= link_to 'フォローする', follow_path(user.id), method: :post, class: "btn btn-success btn-block" %></th>
+      <% end %>
+    <% end %>
+  </tr>
 </table>
 
 <div class='row'>
