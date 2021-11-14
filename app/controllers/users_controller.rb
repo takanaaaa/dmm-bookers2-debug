@@ -7,11 +7,11 @@ class UsersController < ApplicationController
     @book = Book.new
   end
 
-  def follow
+  def following
     @user = User.find(params[:id])
   end
 
-  def unfollow
+  def follower
     @user = User.find(params[:id])
   end
 
