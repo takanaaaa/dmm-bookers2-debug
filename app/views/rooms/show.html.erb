@@ -1,0 +1,28 @@
+<main>
+  <h5><%= @user.name%>さんとのチャット</h5>
+  <div class="container">
+    <div class="row">
+      <table>
+        <% if @messages.present? %>
+          <% @messages.each do |m| %>
+            <tr>
+              <td>
+                <%= m.content %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+
+  <%= form_with model:@message do |f| %>
+    <%= f.text_field :content %>
+    <%= f.hidden_field :room_id, :value => @room.id %>
+    <br>
+    <%= f.submit "投稿する", formaction:messages_path, method: :post %>
+  <% end %>
+
+</main>

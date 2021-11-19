@@ -19,6 +19,9 @@ class User < ApplicationRecord
   has_many :following_user, through: :follower, source: :followed
   has_many :follower_user, through: :followed, source: :follower
 
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
+
   def favorited_by?(book)
     favorites.where(book_id: book.id).exists?
   end

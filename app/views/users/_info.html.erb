@@ -19,9 +19,23 @@
   <tr>
     <% if user.id != current_user.id %>
       <% if current_user.following?(user) %>
-        <th><%= link_to 'フォロー外す', unfollow_path(user.id), method: :post, class: "btn btn-info btn-block" %></th>
+        <th class="px-0" colspan="2">
+          <%= link_to 'フォロー外す', unfollow_path(user.id), method: :post, class: "btn btn-info" %>
+          <% if @isRoom == true %>
+            <%= link_to "チャットへ", user_room_path(user_id: @user, id: @roomId)%>
+          <% else %>
+            <%= form_with model: @rooms, url: user_rooms_path(@user), local:true do |f| %>
+              <%= fields_for @entry do |e| %>
+                <%= e.hidden_field :user_id, :value=> @user.id %>
+              <% end %>
+              <%= f.submit "チャットを始める", method: :post %>
+            <% end %>
+          <% end %>
+        </th>
       <% else %>
-        <th><%= link_to 'フォローする', follow_path(user.id), method: :post, class: "btn btn-success btn-block" %></th>
+        <th class="px-0" colspan="2">
+          <%= link_to 'フォローする', follow_path(user.id), method: :post, class: "btn btn-success" %>
+        </th>
       <% end %>
     <% end %>
   </tr>
