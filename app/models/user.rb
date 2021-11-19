@@ -38,6 +38,9 @@ class User < ApplicationRecord
    following_user.include?(user)
   end
 
+  def matchers
+    following_user & follower_user
+  end
 
   def self.search(search, word)
     if search == "forward_match"
