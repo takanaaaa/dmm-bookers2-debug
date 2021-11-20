@@ -21,6 +21,7 @@
           </td>
         <td>
           コメント数:<%= book.book_comments.count %></br>
+          閲覧数:<%= book.view_counts.count %></br>
           <small><%= book.created_at.strftime("%Y-%m-%d") %></small>
         </td>
       </tr>

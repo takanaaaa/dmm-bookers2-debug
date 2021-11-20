@@ -21,6 +21,7 @@ class User < ApplicationRecord
 
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
+  has_many :view_counts, dependent: :destroy
 
   def favorited_by?(book)
     favorites.where(book_id: book.id).exists?

@@ -24,9 +24,9 @@
           <% if @isRoom == true %>
             <%= link_to "チャットへ", user_room_path(user_id: @user, id: @roomId)%>
           <% else %>
-            <%= form_with model: @rooms, url: user_rooms_path(@user), local:true do |f| %>
+            <%= form_with model: @room, url: user_rooms_path(@user), local:true do |f| %>
               <%= fields_for @entry do |e| %>
-                <%= e.hidden_field :user_id, :value=> @user.id %>
+                <%= e.hidden_field :user_id, value: @user.id %>
               <% end %>
               <%= f.submit "チャットを始める", method: :post %>
             <% end %>
