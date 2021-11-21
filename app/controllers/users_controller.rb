@@ -6,10 +6,10 @@ class UsersController < ApplicationController
     @books = @user.books
     @book = Book.new
 
-    @today_book = Book.where(created_at: Time.zone.now.all_day)
-    @yesterday_book = Book.where(created_at: 1.day.ago.all_day)
-    @week_book = Book.where(created_at: 6.day.ago.beginning_of_day..Time.zone.now.end_of_day)
-    @lastweek_book = Book.where(created_at: 2.week.ago.beginning_of_day..1.week.ago.end_of_day)
+    @today_book = @books.created_today
+    @yesterday_book = @books.created_yesterday
+    @week_book = @books.created_this_week
+    @lastweek_book = @books.created_last_week
 
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry = Entry.where(user_id: @user.id)
