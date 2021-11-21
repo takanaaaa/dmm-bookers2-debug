@@ -23,6 +23,7 @@
         <br>
         <%= f.submit "投稿する", formaction:messages_path, method: :post %>
       <% end %>
+      <% flash[:alert] %>
     </div>
   </div>
   <% else %>
