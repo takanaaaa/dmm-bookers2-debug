@@ -9,61 +9,116 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
-      <h3>投稿数の前日比・前週比</h3>
+  </div>
+  <div class="row">
+    <h3>投稿数の前日比・前週比</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>今日の投稿数</th>
+          <th>前日の投稿数</th>
+          <th>前日比</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><%= @today_book.count %></th>
+          <th><%= @yesterday_book.count %></th>
+          <th>
+            <% if @yesterday_book.count == 0 %>
+              前日の投稿はありません
+            <% else %>
+              <% @the_day_defore = @today_book.count / @yesterday_book.count %>
+              <%= (@the_day_defore * 100).round %>
+            <% end %>
+          </th>
+        </tr>
+      </tbody>
+    </table>
 
-      <tableclass="table table-bordered">
-        <thead>
+    <table class="table table-bordered">
+     <thead>
+        <tr>
+          <th>今週の投稿数</th>
+          <th>前週の投稿数</th>
+          <th>前週比</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><%= @week_book.count %></th>
+          <th><%= @lastweek_book.count %></th>
+          <th>
+            <% if @lastweek_book.count == 0 %>
+              前日の投稿はありません
+            <% else %>
+              <% @the_week_defore = @week_book.count / @lastweek_book.count %>
+              <%= (@the_week_defore * 100).round %>
+            <% end %>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <h3>7日間分の投稿数</h3>
+    <table class="table table-bordered">
+     <thead>
+        <tr>
+          <th>6日前</th>
+          <th>5日前</th>
+          <th>4日前</th>
+          <th>3日前</th>
+          <th>2日前</th>
+          <th>1日前</th>
+          <th>今日</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><%= @books.where(created_at: 6.day.ago.all_day).count %></th>
+          <th><%= @books.where(created_at: 5.day.ago.all_day).count %></th>
+          <th><%= @books.where(created_at: 4.day.ago.all_day).count %></th>
+          <th><%= @books.where(created_at: 3.day.ago.all_day).count %></th>
+          <th><%= @books.where(created_at: 2.day.ago.all_day).count %></th>
+          <th><%= @books.where(created_at: 1.day.ago.all_day).count %></th>
+          <th><%= @books.where(created_at: Time.zone.now.all_day).count %></th>
+        </tr>
+      </tbody>
+    </table>
+    <p class="h6 text-center">7日間の投稿数の比較</p>
+    <canvas id="myChart" width="400" height="200"></canvas>
 
-        </thead>
-      </table>
+    <script>
+      const ctx = document.getElementById('myChart');
+      const myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: ['6日前','5日前', '4日前', '3日前', '2日前', '1日前', '今日'],
+              datasets: [{
+                  label: '投稿した本の数',
+                  data: <%= @chartdatas %>,
+                  backgroundColor: [
+                      'rgba(71, 127, 143, 1)',
+                  ],
+                  borderColor: [
+                      'rgba(71, 127, 143, 1)',
 
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>今日の投稿数</th>
-            <th>前日の投稿数</th>
-            <th>前日比</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th><%= @today_book.count %></th>
-            <th><%= @yesterday_book.count %></th>
-            <th>
-              <% if @yesterday_book.count == 0 %>
-                前日の投稿はありません
-              <% else %>
-                <% @the_day_defore = @today_book.count / @yesterday_book.count %>
-                <%= (@the_day_defore * 100).round %>
-              <% end %>
-            </th>
-          </tr>
-        </tbody>
-      </table>
-
-      <table class="table table-bordered">
-       <thead>
-          <tr>
-            <th>今週の投稿数</th>
-            <th>前週の投稿数</th>
-            <th>前週比</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th><%= @week_book.count %></th>
-            <th><%= @lastweek_book.count %></th>
-            <th>
-              <% if @lastweek_book.count == 0 %>
-                前日の投稿はありません
-              <% else %>
-                <% @the_week_defore = @week_book.count / @lastweek_book.count %>
-                <%= (@the_week_defore * 100).round %>
-              <% end %>
-            </th>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+                  ],
+                  borderWidth: 3
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      display: true,
+                      suggestedMin: 0,
+                      suggestedMax: 10,
+                  }
+              }
+          }
+      });
+    </script>
+  </div>
   </div>
 </div>

@@ -11,6 +11,9 @@ class UsersController < ApplicationController
     @week_book = @books.created_this_week
     @lastweek_book = @books.created_last_week
 
+    @book_by_day = @books.group_by_day(:created_at, last: 7).size
+    @chartdatas = @book_by_day.map(&:second).to_json.html_safe
+
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry = Entry.where(user_id: @user.id)
     if @user.id == current_user.id
