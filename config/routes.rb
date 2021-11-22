@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get :following, :follower
     end
     resources :rooms, only: [:create, :show]
+    get 'search' => 'users#search'
   end
   resources :books do
     resource :favorites, only: [:create, :destroy]

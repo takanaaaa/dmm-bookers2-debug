@@ -7,6 +7,15 @@
       <%= render 'books/form', book: @book %>
     </div>
     <div class='col-md-8 offset-md-1'>
+      <%= form_with url: user_search_path(@user), method: :get do |f| %>
+        <%= f.date_field :created_at %>
+        <%= f.submit "検索", class: "btn btn-primary"%>
+      <% end %>
+      <div id="search_result">
+        <% if @search_book.present? %>
+          <%= render "search", search_book: @search_book %>
+        <% end %>
+      </div>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
   </div>
@@ -87,7 +96,7 @@
       </tbody>
     </table>
     <p class="h6 text-center">7日間の投稿数の比較</p>
-    <canvas id="myChart" width="400" height="200"></canvas>
+    <canvas id="myChart" width="300" height="100"></canvas>
 
     <script>
       const ctx = document.getElementById('myChart');
@@ -113,7 +122,7 @@
                   y: {
                       display: true,
                       suggestedMin: 0,
-                      suggestedMax: 10,
+                      suggestedMax: 3,
                   }
               }
           }
