@@ -1,0 +1,10 @@
+ <tr>
+  <td><%= attachment_image_tag(group, :image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
+  <td><%= group.name %></td>
+  <td><%= group.introduction %></td>
+  <td>
+    <% if group.owner_id == current_user.id %>
+      <%= link_to "Edit", edit_group_path(group), class: 'btn btn-success' %>
+    <% end %>
+  </td>
+</tr>

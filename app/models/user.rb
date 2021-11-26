@@ -23,6 +23,9 @@ class User < ApplicationRecord
   has_many :entries, dependent: :destroy
   has_many :view_counts, dependent: :destroy
 
+  has_many :group_users
+  has_many :groups, through: :group_users
+
   def favorited_by?(book)
     favorites.where(book_id: book.id).exists?
   end
