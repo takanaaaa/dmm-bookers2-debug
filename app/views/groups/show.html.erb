@@ -20,7 +20,20 @@
           </tr>
         </thead>
         <tbody>
-          <%= render "detail", group: @group %>
+          <tr>
+            <%= render "detail", group: @group %>
+            <td>
+              <% if @group.owner_id == current_user.id %>
+                <%= link_to "Notice an Event", new_inquiry_path(@group.id), class: 'btn btn-primary'%>
+              <% else %>
+                <% if @group.users.include?(current_user)%>
+                  <%= link_to "Leave this group", leave_group_path(@group), class: 'btn btn-danger' %>
+                <% else %>
+                  <%= link_to "Join this group", join_group_path(@group), class: 'btn btn-success' %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
         </tbody>
       </table>
    </div>

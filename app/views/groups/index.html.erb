@@ -20,7 +20,9 @@
         </thead>
         <tbody>
           <% @groups.each do |group| %>
-            <%= render "detail", group: group %>
+            <tr>
+              <%= render "detail", group: group %>
+            </tr>
           <% end %>
         </tbody>
       </table>

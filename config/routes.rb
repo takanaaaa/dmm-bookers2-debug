@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     member do
       get :join
       get :leave
+      resources :inquiries, only: [:new, :create, :show]
     end
   end
   resources :messages, only: [:create]
