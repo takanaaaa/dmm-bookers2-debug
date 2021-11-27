@@ -7,9 +7,13 @@
     <%= f.label :opinion %>
     <%= f.text_area :body, class: 'form-control book_body' %>
   </div>
+  <% if action_name == "edit"%>
+    <div class="book-evaluation" data-score="<%= book.evaluation %>"></div>
+  <% else %>
   <div id="evaluate_stars">
     <label>rate</label>
   </div>
+  <% end %>
   <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
   </div>

@@ -132,3 +132,12 @@
   </div>
   </div>
 </div>
+<script>
+  $(".book-evaluation").raty({
+    readOnly: true,
+    score: function(){
+      return $(this).attr("data-score");
+    },
+    path: "/assets/"
+  })
+</script>
