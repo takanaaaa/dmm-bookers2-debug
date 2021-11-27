@@ -23,11 +23,10 @@
             <%= render"favorites/favorite-btn", book: @book %>
           </td>
           <td>
-            <p id="comments-count">コメント数:<%= @book.book_comments.count %></p>
-          </td>
-          <td>
+            <p id="comments-count">コメント数:<%= @book.book_comments.count %></p><br>
             <p class="view-count">閲覧数: <%= @book.view_counts.count %></p>
           </td>
+          <td class="book-evaluation" data-score="<%= @book.evaluation %>"></td>
           <% if @book.user_id == current_user.id %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
             <td><%= link_to 'Destroy', book_path(@book), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
@@ -47,3 +46,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(".book-evaluation").raty({
+    readOnly: true,
+    score: function(){
+      return $(this).attr("data-score");
+    },
+    path: "/assets/"
+  })
+</script>
