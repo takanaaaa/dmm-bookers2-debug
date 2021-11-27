@@ -13,8 +13,13 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
   end
+  resources :groups, only: [:new, :create, :index, :show, :edit, :update] do
+    member do
+      get :join
+      get :leave
+    end
+  end
   resources :messages, only: [:create]
-  resources :groups, only: [:new, :create, :index, :show, :edit, :update]
   post 'follow/:id' => 'relationships#create', as: 'follow'
   post 'unfollow/:id' => 'relationships#destroy', as: 'unfollow'
   get 'search' => 'searches#search'
