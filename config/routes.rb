@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :inquiries, only: [:new, :create, :show]
     end
   end
+  get 'tags/:tag_id/books' => 'books#search', as: 'tag_book'
   resources :messages, only: [:create]
   post 'follow/:id' => 'relationships#create', as: 'follow'
   post 'unfollow/:id' => 'relationships#destroy', as: 'unfollow'

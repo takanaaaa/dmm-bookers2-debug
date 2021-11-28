@@ -7,8 +7,11 @@ class SearchesController < ApplicationController
 
     if @range == '1'
       @user = User.search(search, word)
-    else
+    elsif @range == '2'
       @book = Book.search(search, word)
+    else
+      tag = Tag.search(search, word)
+      redirect_to tag_book_path(tag.ids)
     end
   end
 end
