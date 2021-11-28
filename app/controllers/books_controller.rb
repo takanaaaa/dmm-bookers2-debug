@@ -33,7 +33,13 @@ class BooksController < ApplicationController
   def index
     to = Time.current.at_end_of_day
     from = (to - 1.week).at_beginning_of_day
-    @books = Book.includes(:favorited_users).where(created_at: from...to).sort {|a,b| b.favorited_users.size <=> a.favorited_users.size}
+    if params[:sort] == "newArrival"
+      @books = Book.order(created_at: :desc)
+    elsif params[:sort] == "evaluation"
+      @books = Book.order(evaluation: :desc)
+    else
+      @books = Book.includes(:favorited_users).where(created_at: from...to).sort {|a,b| b.favorited_users.size <=> a.favorited_users.size}
+    end
     @book = Book.new
   end
 

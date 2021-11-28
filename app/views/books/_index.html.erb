@@ -19,9 +19,7 @@
         <td id="favorite-btn_<%= book.id %>">
           <%= render"favorites/favorite-btn", book: book %>
         </td>
-        <% if controller_name == "users" && action_name == "show" %>
-          <td class="book-evaluation" data-score="<%= book.evaluation %>"></td>
-        <% end %>
+        <td class="book-evaluation" data-score="<%= book.evaluation %>"></td>
         <td>
           コメント数:<%= book.book_comments.count %></br>
           閲覧数:<%= book.view_counts.count %></br>
@@ -31,3 +29,13 @@
     <% end %>
   </tbody>
 </table>
+
+<script>
+  $(".book-evaluation").raty({
+    readOnly: true,
+    score: function(){
+      return $(this).attr("data-score");
+    },
+    path: "/assets/"
+  })
+</script>
