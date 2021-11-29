@@ -11,7 +11,7 @@ class SearchesController < ApplicationController
       @book = Book.search(search, word)
     else
       tag = Tag.search(search, word)
-      redirect_to tag_book_path(tag.ids)
+      @books = Book.left_joins(:tag_maps).where(:tag_maps => {:tag_id => tag.ids})
     end
   end
 end

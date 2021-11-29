@@ -32,7 +32,6 @@ class BooksController < ApplicationController
 
   def index
     @book = Book.new
-    @tag_list = Tag.all
     to = Time.current.at_end_of_day
     from = (to - 1.week).at_beginning_of_day
     if params[:sort] == "newArrival"
@@ -83,7 +82,6 @@ class BooksController < ApplicationController
   end
 
   def search
-    @tag_list = Tag.all
     @tag = Tag.find(params[:tag_id])
     @books = @tag.books.all
     @book = Book.new
